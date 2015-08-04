@@ -115,7 +115,7 @@ prompt.get(schema, function (error, result) {
                     if (error.code == 144) {
                         console.log('Tweet ' + id + ' was already deleted')
                     } else if (error.code == 89) {
-                        console.log('Invalid API keys/tokens')
+                        console.log(chalk.red('Invalid API keys/tokens\n'))
                         return
                     } else {
                         problematicTweetIds.push(id)

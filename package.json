@@ -1,6 +1,6 @@
 {
     "name": "rehatch",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "Delete all your tweets",
     "keywords": ["delete", "tweets", "twitter", "archive"],
     "homepage": "https://github.com/DavdRoman/rehatch",
