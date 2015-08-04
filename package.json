@@ -1,0 +1,19 @@
+{
+    "name": "rehatch",
+    "version": "0.0.0",
+    "description": "Delete all your tweets",
+    "keywords": ["delete", "tweets", "twitter", "archive"],
+    "homepage": "https://github.com/DavdRoman/rehatch",
+    "license": "MIT",
+    "author": "David Román <d@vidroman.me>",
+    "repository": "DavdRoman/rehatch",
+    "dependencies": {
+        "twit": "~2.1.0",
+        "chalk": "~1.1.0",
+        "prompt": "~0.2.14",
+        "nconf": "~0.7.2"
+    },
+    "bin" : {
+        "rehatch" : "rehatch.js"
+    }
+}
