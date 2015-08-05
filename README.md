@@ -1,7 +1,7 @@
 rehatch
 =======
 
-One of the main problems when it comes to deleting all your tweets from your Twitter account is... Twitter. Turns out the Twitter API doesn't allow to retrieve tweets older than your last 3200 tweets.
+One of the main problems when it comes to deleting all your tweets from your Twitter account is... Twitter. Turns out the Twitter API doesn't allow to retrieve tweets older than your last 3200 tweets. In other words: you can't really delete all your tweets purely from the Twitter API.
 
 So how does rehatch work, then? Well, turns out Twitter __does__ provide a way to get a compilation of all your tweets: your Twitter Archive. Rehatch takes advantage of this, and uses your archive to parse all the tweets in your account and delete them one by one.
 
@@ -18,5 +18,9 @@ $ [sudo] npm install -g rehatch
 ```
 
 ```bash
-$ rehatch PATH_TO_TWITTER_ARCHIVE_FOLDER
+$ [sudo] rehatch PATH_TO_TWITTER_ARCHIVE_FOLDER
 ```
+
+## License
+
+Rehatch is available under the MIT license.
