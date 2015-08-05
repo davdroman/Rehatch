@@ -10,7 +10,7 @@ var nconf = require('nconf')
 
 // Configuration
 
-nconf.use('file', {file: 'config.json'})
+nconf.use('file', {file: __dirname + '/config.json'})
 nconf.load()
 
 var consumerKey = nconf.get('consumer_key')
