@@ -5,7 +5,7 @@ One of the main problems when it comes to deleting all your tweets from your Twi
 
 So how does rehatch work, then? Well, turns out Twitter __does__ provide a way to get a compilation of all your tweets: your Twitter Archive. Rehatch takes advantage of this, and uses your archive to parse all the tweets in your account and delete them one by one.
 
-Disclaimer: rehatch doesn't work fast __at all__. You'll probably need to wait a few hours before it completes. It all depends on the number of tweets you have.
+Rehatch doesn't work at light speed. You'll probably need to wait for a while before it completes. It all depends on the number of tweets you have.
 
 ## Usage
 
