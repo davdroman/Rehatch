@@ -11,4 +11,5 @@ import Foundation
 struct Tweet {
 	let id: String
 	let date: Date
+	let isRetweet: Bool
 }

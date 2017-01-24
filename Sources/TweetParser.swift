@@ -7,12 +7,14 @@
 //
 
 import Foundation
+import Result
 import CSV
 
 struct TweetParser {
 
 	enum Error: Swift.Error {
-		case something
+		case csv
+		case date(dateString: String)
 	}
 
 	let path: String
@@ -25,34 +27,33 @@ struct TweetParser {
 		}
 	}
 
-	func parse() throws -> [Tweet] {
+	func parse() -> Result<[Tweet], Error> {
 		guard let stream = InputStream(fileAtPath: path) else {
-			throw Error.something
+			return .failure(.csv)
 		}
 
 		var tweets = [Tweet]()
 
 		do {
 			for (index, line) in try CSV(stream: stream).enumerated() {
-				if index > 0 && line.count >= 3 {
+				if index > 0 && line.count > 6 {
 					let id = line[0]
 					let timestamp = line[3]
+					let isRetweet = !line[6].isEmpty
 
 					let dateFormatter = DateFormatter()
 					dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
 
-					guard let date = dateFormatter.date(from: timestamp) else {
-						throw Error.something
+					if let date = dateFormatter.date(from: timestamp) {
+						let tweet = Tweet(id: id, date: date, isRetweet: isRetweet)
+						tweets.append(tweet)
 					}
-
-					let tweet = Tweet(id: id, date: date)
-					tweets.append(tweet)
 				}
 			}
 		} catch {
-			throw Error.something
+			return .failure(.csv)
 		}
 
-		return tweets
+		return .success(tweets)
 	}
 }
