@@ -11,7 +11,7 @@ import CommandLineKit
 import CSV
 
 let folderPath = StringOption(shortFlag: "a", longFlag: "archive", helpMessage: "Path to the Twitter Archive folder.")
-let limitDate = StringOption(shortFlag: "d", longFlag: "date", helpMessage: "Limit date for tweet removal (dd/MM/yyyy hh:mm).")
+let limitDate = StringOption(shortFlag: "d", longFlag: "date", helpMessage: "Limit date for tweet removal (dd/MM/yyyy hh:mm, empty for no limit).")
 let help = BoolOption(shortFlag: "h", longFlag: "help", helpMessage: "Prints a help message.")
 
 let cli = CommandLineKit.CommandLine(options: folderPath, help)
@@ -26,27 +26,35 @@ let cli = CommandLineKit.CommandLine(options: folderPath, help)
 
 	let prompt = Prompter()
 
-	let folderPathValue = folderPath.value ?? prompt.askString(folderPath.helpMessage)
-//	let limitDateRawValue = folderPath.value ?? prompt.askString(limitDate.helpMessage)
+	let folderPathValue = folderPath.value ?? prompt.askString(folderPath.helpMessage.prompted())
+	let limitDateValue: Date
 
+	let limitDateRawValue = folderPath.value ?? prompt.askString(limitDate.helpMessage.prompted())
 	let dateFormatter = DateFormatter()
-//	dateFormatter.dateFormat = "h:mm a - M MMM yyyy"
-//	print(dateFormatter.date(from: "5:15 am - 31 May 2016"))
-//	dateFormatter.dateFormat = "dd/M/yy h:mm"
-//	print(dateFormatter.date(from: "31/5/16 5:15"))
+	dateFormatter.dateFormat = "dd/MM/yyyy hh:mm"
 
-	do {
-		let tweets = try TweetParser(path: folderPathValue).parse()
-		for tweet in tweets {
-			TwitterAPI.instance.deleteTweet(tweet)
-			sleep(1)
-		}
-	} catch {
-		cli.printUsage(error)
+	if limitDateRawValue.isEmpty {
+		limitDateValue = Date()
+	} else if let date = dateFormatter.date(from: limitDateRawValue) {
+		limitDateValue = date
+	} else {
+		print("Could not read specified date")
 		return
 	}
 
-//	if let limitDateValue = DateFormatter()
+	let semaphore = DispatchSemaphore(value: 1)
 
-//	print(dateFormatter.string(from: Date()))
+	switch TweetParser(path: folderPathValue).parse() {
+	case .success(var tweets):
+		let tweets = tweets.sorted { $0.date < $1.date }.filter { $0.date < limitDateValue }
+		let api = TwitterAPI(consumerKey: "", consumerSecret: "")
+
+		api.deleteTweets(tweets, completion: {
+			semaphore.signal()
+		})
+	case .failure(let error):
+		cli.printUsage(error)
+	}
+
+	_ = semaphore.wait(timeout: .distantFuture)
 })()
