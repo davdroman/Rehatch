@@ -15,8 +15,8 @@ final class TwitterAPI {
 
 	private let swifter: Swifter
 
-	init(consumerKey: String, consumerSecret: String) {
-		self.swifter = Swifter(consumerKey: consumerKey, consumerSecret: consumerSecret)
+	init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String) {
+		swifter = Swifter(consumerKey: consumerKey, consumerSecret: consumerSecret, oauthToken: accessToken, oauthTokenSecret: accessTokenSecret)
 	}
 
 	func deleteTweet(_ tweet: Tweet, completion: VoidClosure<Error?>?) {

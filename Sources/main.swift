@@ -47,7 +47,12 @@ let cli = CommandLineKit.CommandLine(options: folderPath, help)
 	switch TweetParser(path: folderPathValue).parse() {
 	case .success(var tweets):
 		let tweets = tweets.sorted { $0.date < $1.date }.filter { $0.date < limitDateValue }
-		let api = TwitterAPI(consumerKey: "", consumerSecret: "")
+		let api = TwitterAPI(
+			consumerKey: "",
+			consumerSecret: "",
+			accessToken: "",
+			accessTokenSecret: ""
+		)
 
 		api.deleteTweets(tweets, completion: {
 			semaphore.signal()

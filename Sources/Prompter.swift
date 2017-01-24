@@ -137,7 +137,7 @@ extension Prompter {
 		}
 
 		if let result = type.result(data) {
-			block?(result.value as! AnyObject)
+			block?(result.value as AnyObject)
 			return result
 		}
 
