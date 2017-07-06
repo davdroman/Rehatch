@@ -25,23 +25,38 @@ final class TweetDeletionReporter {
 		} else {
 			failedTweets.append(tweet)
 		}
-		printProgress()
+		echoProgress(current: succeededTweets.count + failedTweets.count, total: totalTweets)
 		endReportIfPossible()
 	}
 
-	func printProgress() {
-//		let percentage = (Double(deletedTweets)/Double(totalTweets))*100
-//		print("Done! \(deletedTweets)/\(totalTweets) were deleted. That's \(percentage)% of your tweets.")
-//		print("\027[k")
+	var progressString: String {
+		if let percentageString = percentageString {
+			return "Done! \(succeededTweets.count)/\(totalTweets) were deleted. That's \(percentageString) of your tweets."
+		} else {
+			return "Done! \(succeededTweets.count)/\(totalTweets) were deleted."
+		}
 	}
 
-	func endReportIfPossible() {
+	var percentageString: String? {
+		let numberFormatter = NumberFormatter()
+		numberFormatter.numberStyle = .percent
+		numberFormatter.minimumFractionDigits = 0
+		numberFormatter.maximumFractionDigits = 2
+		numberFormatter.roundingMode = .floor
+		return numberFormatter.string(from: NSNumber(value: successPercentage))
+	}
+
+	var successPercentage: Double {
+		return Double(succeededTweets.count) / Double(totalTweets)
+	}
+
+	private func endReportIfPossible() {
 		let tweetCount = succeededTweets.count + failedTweets.count
 
 		guard tweetCount >= totalTweets else {
 			return
 		}
 
-		// Print
+		print(progressString)
 	}
 }
