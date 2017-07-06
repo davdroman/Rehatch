@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_87"
+               BlueprintIdentifier = "OBJ_89"
                BuildableName = "CommandLineKit.framework"
                BlueprintName = "CommandLineKit"
                ReferencedContainer = "container:Rehatch.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_96"
+               BlueprintIdentifier = "OBJ_98"
                BuildableName = "Swifter.framework"
                BlueprintName = "Swifter"
                ReferencedContainer = "container:Rehatch.xcodeproj">
@@ -42,7 +42,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_137"
+               BlueprintIdentifier = "OBJ_139"
                BuildableName = "Then.framework"
                BlueprintName = "Then"
                ReferencedContainer = "container:Rehatch.xcodeproj">
@@ -56,7 +56,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_144"
+               BlueprintIdentifier = "OBJ_146"
                BuildableName = "CSV.framework"
                BlueprintName = "CSV"
                ReferencedContainer = "container:Rehatch.xcodeproj">
@@ -70,7 +70,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_157"
+               BlueprintIdentifier = "OBJ_159"
                BuildableName = "Result.framework"
                BlueprintName = "Result"
                ReferencedContainer = "container:Rehatch.xcodeproj">
@@ -84,7 +84,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_165"
+               BlueprintIdentifier = "OBJ_167"
                BuildableName = "RehatchCore.framework"
                BlueprintName = "RehatchCore"
                ReferencedContainer = "container:Rehatch.xcodeproj">
@@ -98,7 +98,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_186"
+               BlueprintIdentifier = "OBJ_189"
                BuildableName = "Rehatch"
                BlueprintName = "Rehatch"
                ReferencedContainer = "container:Rehatch.xcodeproj">
@@ -116,7 +116,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_208"
+               BlueprintIdentifier = "OBJ_211"
                BuildableName = "RehatchCoreTests.xctest"
                BlueprintName = "RehatchCoreTests"
                ReferencedContainer = "container:Rehatch.xcodeproj">
@@ -139,7 +139,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_87"
+            BlueprintIdentifier = "OBJ_89"
             BuildableName = "CommandLineKit.framework"
             BlueprintName = "CommandLineKit"
             ReferencedContainer = "container:Rehatch.xcodeproj">
