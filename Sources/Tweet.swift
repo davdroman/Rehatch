@@ -13,3 +13,11 @@ struct Tweet {
 	let date: Date
 	let isRetweet: Bool
 }
+
+extension Array where Element == Tweet {
+	func sortedTweets(until date: Date) -> [Tweet] {
+		return self
+			.filter { $0.date < date }
+			.sorted { $0.date < $1.date }
+	}
+}
