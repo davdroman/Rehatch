@@ -14,11 +14,13 @@ struct TweetParser {
 
 	private enum Constants {
 		static let tweetsFilename = "tweets.csv"
+		static let dateFormat = "yyyy-MM-dd HH:mm:ss Z"
 	}
 
 	enum Error: Swift.Error {
 		case path
 		case format
+		case empty
 		case parsing
 	}
 
@@ -30,10 +32,16 @@ struct TweetParser {
 		}
 
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+		dateFormatter.dateFormat = Constants.dateFormat
 
 		do {
-			let tweets = try CSV(stream: stream)
+			let csv = try CSV(stream: stream)
+
+			guard Array(csv).count <= 1 else {
+				return .failure(.empty)
+			}
+
+			let tweets = csv
 				.enumerated()
 				.filter { index, _ in index > 0 }
 				.flatMap { _, line -> Tweet? in
@@ -47,6 +55,10 @@ struct TweetParser {
 
 					return Tweet(id: id, date: date, isRetweet: isRetweet)
 				}
+
+			guard !tweets.isEmpty else {
+				return .failure(.parsing)
+			}
 
 			return .success(tweets)
 		} catch {

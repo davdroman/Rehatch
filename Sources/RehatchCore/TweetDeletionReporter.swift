@@ -30,6 +30,8 @@ final class TweetDeletionReporter {
 	}
 
 	func printProgress() {
+//		let percentage = (Double(deletedTweets)/Double(totalTweets))*100
+//		print("Done! \(deletedTweets)/\(totalTweets) were deleted. That's \(percentage)% of your tweets.")
 //		print("\027[k")
 	}
 
