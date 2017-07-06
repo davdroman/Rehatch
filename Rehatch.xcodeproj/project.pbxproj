@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D5F61F001F0EB327005542F4 /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F61EFF1F0EB327005542F4 /* Array+SafeIndex.swift */; };
+		D5F61F021F0EBD07005542F4 /* TweetDeletionReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F61F011F0EBD07005542F4 /* TweetDeletionReporter.swift */; };
 		OBJ_100 /* String++.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* String++.swift */; };
 		OBJ_101 /* Swifter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* Swifter.swift */; };
 		OBJ_102 /* SwifterAccountsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* SwifterAccountsClient.swift */; };
@@ -110,6 +111,7 @@
 
 /* Begin PBXFileReference section */
 		D5F61EFF1F0EB327005542F4 /* Array+SafeIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+SafeIndex.swift"; sourceTree = "<group>"; };
+		D5F61F011F0EBD07005542F4 /* TweetDeletionReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetDeletionReporter.swift; sourceTree = "<group>"; };
 		OBJ_10 /* Prompter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prompter.swift; sourceTree = "<group>"; };
 		OBJ_11 /* String+Sugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Sugar.swift"; sourceTree = "<group>"; };
 		OBJ_12 /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 				D5F61EFF1F0EB327005542F4 /* Array+SafeIndex.swift */,
 				OBJ_12 /* Tweet.swift */,
 				OBJ_13 /* TweetParser.swift */,
+				D5F61F011F0EBD07005542F4 /* TweetDeletionReporter.swift */,
 				OBJ_14 /* TwitterAPI.swift */,
 			);
 			path = Sources;
@@ -559,6 +562,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_162 /* CommandLine+Sugar.swift in Sources */,
+				D5F61F021F0EBD07005542F4 /* TweetDeletionReporter.swift in Sources */,
 				D5F61F001F0EB327005542F4 /* Array+SafeIndex.swift in Sources */,
 				OBJ_163 /* main.swift in Sources */,
 				OBJ_164 /* Prompter.swift in Sources */,
