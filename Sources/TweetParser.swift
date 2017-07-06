@@ -12,48 +12,45 @@ import CSV
 
 struct TweetParser {
 
+	private enum Constants {
+		static let tweetsFilename = "tweets.csv"
+	}
+
 	enum Error: Swift.Error {
-		case csv
-		case date(dateString: String)
+		case path
+		case format
+		case parsing
 	}
 
-	let path: String
+	func parse(fromArchive url: URL) -> Result<[Tweet], Error> {
+		let csvURL = url.appendingPathComponent(Constants.tweetsFilename)
 
-	init(path: String) {
-		if path.hasSuffix("/") {
-			self.path = path + "tweets.csv"
-		} else {
-			self.path = path + "/tweets.csv"
-		}
-	}
-
-	func parse() -> Result<[Tweet], Error> {
-		guard let stream = InputStream(fileAtPath: path) else {
-			return .failure(.csv)
+		guard let stream = InputStream(url: csvURL) else {
+			return .failure(.path)
 		}
 
-		var tweets = [Tweet]()
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
 
 		do {
-			for (index, line) in try CSV(stream: stream).enumerated() {
-				if index > 0 && line.count > 6 {
-					let id = line[0]
-					let timestamp = line[3]
-					let isRetweet = !line[6].isEmpty
-
-					let dateFormatter = DateFormatter()
-					dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-
-					if let date = dateFormatter.date(from: timestamp) {
-						let tweet = Tweet(id: id, date: date, isRetweet: isRetweet)
-						tweets.append(tweet)
+			let tweets = try CSV(stream: stream)
+				.enumerated()
+				.filter { index, _ in index > 0 }
+				.flatMap { _, line -> Tweet? in
+					guard
+						let id = line[safe: 0],
+						let date = line[safe: 3].flatMap(dateFormatter.date),
+						let isRetweet = line[safe: 6].map({ !$0.isEmpty })
+					else {
+						return nil
 					}
-				}
-			}
-		} catch {
-			return .failure(.csv)
-		}
 
-		return .success(tweets)
+					return Tweet(id: id, date: date, isRetweet: isRetweet)
+				}
+
+			return .success(tweets)
+		} catch {
+			return .failure(.format)
+		}
 	}
 }
