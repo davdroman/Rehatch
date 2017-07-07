@@ -10,11 +10,16 @@ import Foundation
 import Result
 import Swifter
 
-final class TwitterAPI {
+public protocol TwitterAPIProtocol {
+	init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String)
+	func deleteTweet(_ tweet: Tweet, completion: @escaping ((Result<Tweet, AnyError>) -> Void))
+}
+
+public final class TwitterAPI: TwitterAPIProtocol {
 
 	private let swifter: Swifter
 
-	init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String) {
+	public init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String) {
 		swifter = Swifter(
 			consumerKey: consumerKey,
 			consumerSecret: consumerSecret,
@@ -23,14 +28,12 @@ final class TwitterAPI {
 		)
 	}
 
-	func deleteTweet(_ tweet: Tweet, completion: @escaping ((Result<Tweet, AnyError>) -> Void)) {
+	public func deleteTweet(_ tweet: Tweet, completion: @escaping ((Result<Tweet, AnyError>) -> Void)) {
 		let deleteTweetClosure = tweet.isRetweet ? swifter.UnretweetTweet : swifter.destroyTweet
 
 		deleteTweetClosure(tweet.id, nil, { _ in
-//			print("Tweet \(tweet.id) deleted")
 			completion(.success(tweet))
 		}, { error in
-//			print("Could not delete tweet \(tweet.id)")
 			completion(.failure(AnyError(error)))
 		})
 	}

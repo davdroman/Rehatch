@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D5EC3F8E1F0F0232008C3CF5 /* TwitterAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EC3F8D1F0F0232008C3CF5 /* TwitterAPIMock.swift */; };
 		OBJ_103 /* Data++.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* Data++.swift */; };
 		OBJ_104 /* Dictionary++.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* Dictionary++.swift */; };
 		OBJ_105 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* HMAC.swift */; };
@@ -209,6 +210,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D5EC3F8D1F0F0232008C3CF5 /* TwitterAPIMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPIMock.swift; sourceTree = "<group>"; };
 		OBJ_10 /* Echo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Echo.swift; sourceTree = "<group>"; };
 		OBJ_11 /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		OBJ_12 /* TweetDeletionReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDeletionReporter.swift; sourceTree = "<group>"; };
@@ -533,6 +535,7 @@
 				OBJ_12 /* TweetDeletionReporter.swift */,
 				OBJ_13 /* TweetParser.swift */,
 				OBJ_14 /* TwitterAPI.swift */,
+				D5EC3F8D1F0F0232008C3CF5 /* TwitterAPIMock.swift */,
 			);
 			name = RehatchCore;
 			path = Sources/RehatchCore;
@@ -817,6 +820,7 @@
 				OBJ_175 /* TweetDeletionReporter.swift in Sources */,
 				OBJ_176 /* TweetParser.swift in Sources */,
 				OBJ_177 /* TwitterAPI.swift in Sources */,
+				D5EC3F8E1F0F0232008C3CF5 /* TwitterAPIMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

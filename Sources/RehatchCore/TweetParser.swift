@@ -10,24 +10,28 @@ import Foundation
 import Result
 import CSV
 
-struct TweetParser {
+public struct TweetParser {
 
 	private enum Constants {
 		static let tweetsFilename = "tweets.csv"
 		static let dateFormat = "yyyy-MM-dd HH:mm:ss Z"
 	}
 
-	enum Error: Swift.Error {
+	public enum Error: Swift.Error {
 		case path
 		case format
 		case empty
 		case parsing
 	}
 
-	func parse(fromArchive url: URL) -> Result<[Tweet], Error> {
-		let csvURL = url.appendingPathComponent(Constants.tweetsFilename)
+	public static func parse(fromArchivePath path: String) -> Result<[Tweet], Error> {
+		let csvPath = path
+			.trimmingCharacters(in: .whitespacesAndNewlines) // remove trailing whitespace
+			.replacingOccurrences(of: "\\", with: "") // allow no escaping for spaces
+			.appending(path.hasSuffix("/") ? "" : "/") // make sure / is appended before csv filename
+			.appending(Constants.tweetsFilename) // append csv
 
-		guard let stream = InputStream(url: csvURL) else {
+		guard let stream = InputStream(fileAtPath: csvPath) else {
 			return .failure(.path)
 		}
 
@@ -36,10 +40,6 @@ struct TweetParser {
 
 		do {
 			let csv = try CSV(stream: stream)
-
-			guard Array(csv).count <= 1 else {
-				return .failure(.empty)
-			}
 
 			let tweets = csv
 				.enumerated()
