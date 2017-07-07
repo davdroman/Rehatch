@@ -41,6 +41,6 @@ public func echo() {
 	echo("")
 }
 
-public func echoNewLine() {
+public func echoNewline() {
 	echo("\n")
 }
