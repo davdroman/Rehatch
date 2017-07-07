@@ -135,8 +135,8 @@ cli.addOptions([
 		// Use semaphore so the tool doesn't get killed whilst doing background operations
 		let semaphore = DispatchSemaphore(value: 0)
 
-		print("Deleting...")
 		echoNewline()
+		print("Deleting...")
 		tweets.forEach { tweet in
 			api.deleteTweet(tweet) { result in
 				switch result {
