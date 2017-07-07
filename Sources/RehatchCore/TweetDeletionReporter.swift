@@ -8,18 +8,17 @@
 
 import Foundation
 
-final class TweetDeletionReporter {
+public final class TweetDeletionReporter {
 
-	let totalTweets: Int
+	public let totalTweets: Int
 	var succeededTweets = [Tweet]()
 	var failedTweets = [Tweet]()
-	let elapsedTime = TimeInterval(0)
 
-	init(totalTweets: Int) {
+	public init(totalTweets: Int) {
 		self.totalTweets = totalTweets
 	}
 
-	func report(_ tweet: Tweet, success: Bool) {
+	public func report(_ tweet: Tweet, success: Bool) {
 		if success {
 			succeededTweets.append(tweet)
 		} else {
@@ -30,10 +29,12 @@ final class TweetDeletionReporter {
 	}
 
 	var progressString: String {
-		if let percentageString = percentageString {
-			return "Done! \(succeededTweets.count)/\(totalTweets) were deleted. That's \(percentageString) of your tweets."
+		if successPercentage == 1 {
+			return "Done! All your tweets were deleted."
+		} else if let percentageString = percentageString {
+			return "Done! \(succeededTweets.count)/\(totalTweets) tweets were deleted. That's \(percentageString) of your tweets."
 		} else {
-			return "Done! \(succeededTweets.count)/\(totalTweets) were deleted."
+			return "Done! \(succeededTweets.count)/\(totalTweets) tweets were deleted."
 		}
 	}
 
@@ -57,6 +58,7 @@ final class TweetDeletionReporter {
 			return
 		}
 
+		echoNewLine()
 		print(progressString)
 	}
 }
