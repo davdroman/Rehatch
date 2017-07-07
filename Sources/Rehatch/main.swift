@@ -18,22 +18,22 @@ enum Constants {
 
 let consumerKey = StringOption(
 	longFlag: "consumerKey",
-	helpMessage: "Consumer Key (API Key)"
+	helpMessage: "Consumer Key (API Key)."
 )
 
 let consumerSecret = StringOption(
 	longFlag: "consumerSecret",
-	helpMessage: "Consumer Secret (API Secret)"
+	helpMessage: "Consumer Secret (API Secret)."
 )
 
 let accessToken = StringOption(
 	longFlag: "accessToken",
-	helpMessage: "Access Token"
+	helpMessage: "Access Token."
 )
 
 let accessTokenSecret = StringOption(
-	longFlag: "accessToken",
-	helpMessage: "Access Token Secret"
+	longFlag: "accessTokenSecret",
+	helpMessage: "Access Token Secret."
 )
 
 // Archive info
@@ -60,13 +60,27 @@ let help = BoolOption(
 	helpMessage: "Prints a help message."
 )
 
-let cli = CommandLineKit.CommandLine(options: folderPath, help)
+let cli = CommandLineKit.CommandLine()
+cli.addOptions([
+	consumerKey,
+	consumerSecret,
+	accessToken,
+	accessTokenSecret,
+	folderPath,
+	limitDate,
+	help
+])
 
 ({
 	do {
 		try cli.parse()
 	} catch {
 		cli.printUsage(error)
+		return
+	}
+
+	if help.value {
+		cli.printUsage()
 		return
 	}
 
@@ -90,7 +104,7 @@ let cli = CommandLineKit.CommandLine(options: folderPath, help)
 	}
 
 	let limitDateValue: Date
-	let limitDateRawValue = folderPath.value ?? prompt.askString(limitDate.helpMessage.prompted())
+	let limitDateRawValue = limitDate.value ?? prompt.askString(limitDate.helpMessage.prompted())
 	let dateFormatter = DateFormatter()
 	dateFormatter.dateFormat = Constants.dateFormat
 
@@ -121,7 +135,8 @@ let cli = CommandLineKit.CommandLine(options: folderPath, help)
 		// Use semaphore so the tool doesn't get killed whilst doing background operations
 		let semaphore = DispatchSemaphore(value: 0)
 
-		print("Requesting deletion")
+		print("Deleting...")
+		echoNewline()
 		tweets.forEach { tweet in
 			api.deleteTweet(tweet) { result in
 				switch result {

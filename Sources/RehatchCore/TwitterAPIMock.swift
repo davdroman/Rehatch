@@ -8,7 +8,6 @@
 
 import Foundation
 import Result
-import Swifter
 
 public final class TwitterAPIMock: TwitterAPIProtocol {
 

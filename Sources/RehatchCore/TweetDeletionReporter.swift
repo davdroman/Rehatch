@@ -58,7 +58,7 @@ public final class TweetDeletionReporter {
 			return
 		}
 
-		echoNewLine()
+		echoNewline()
 		print(progressString)
 	}
 }

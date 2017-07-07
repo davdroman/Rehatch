@@ -8,7 +8,7 @@
 
 import Foundation
 import Result
-import Swifter
+import OhhAuth
 
 public protocol TwitterAPIProtocol {
 	init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String)
@@ -17,24 +17,37 @@ public protocol TwitterAPIProtocol {
 
 public final class TwitterAPI: TwitterAPIProtocol {
 
-	private let swifter: Swifter
+	let consumerKey: String
+	let consumerSecret: String
+	let accessToken: String
+	let accessTokenSecret: String
 
 	public init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String) {
-		swifter = Swifter(
-			consumerKey: consumerKey,
-			consumerSecret: consumerSecret,
-			oauthToken: accessToken,
-			oauthTokenSecret: accessTokenSecret
-		)
+		self.consumerKey = consumerKey
+		self.consumerSecret = consumerSecret
+		self.accessToken = accessToken
+		self.accessTokenSecret = accessTokenSecret
 	}
 
 	public func deleteTweet(_ tweet: Tweet, completion: @escaping ((Result<Tweet, AnyError>) -> Void)) {
-		let deleteTweetClosure = tweet.isRetweet ? swifter.UnretweetTweet : swifter.destroyTweet
+		let action = tweet.isRetweet ? "unretweet" : "destroy"
 
-		deleteTweetClosure(tweet.id, nil, { _ in
-			completion(.success(tweet))
-		}, { error in
-			completion(.failure(AnyError(error)))
-		})
+		var request = URLRequest(url: URL(string: "https://api.twitter.com/1.1/statuses/\(action)/\(tweet.id).json")!)
+		request.oAuthSign(
+			method: "POST",
+			urlFormParameters: [:],
+			consumerCredentials: (key: consumerKey, secret: consumerSecret),
+			userCredentials: (key: accessToken, secret: accessTokenSecret)
+		)
+
+		let task = URLSession(configuration: .ephemeral).dataTask(with: request) { (data, response, error) in
+			if let error = error {
+				completion(.failure(AnyError(error)))
+			} else if data != nil {
+				completion(.success(tweet))
+			}
+		}
+
+		task.resume()
 	}
 }
