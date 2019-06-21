@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Result
 
 public final class TwitterAPIMock: TwitterAPIProtocol {
 
@@ -23,7 +22,7 @@ public final class TwitterAPIMock: TwitterAPIProtocol {
 		self.accessTokenSecret = accessTokenSecret
 	}
 
-	public func deleteTweet(_ tweet: Tweet, completion: @escaping ((Result<Tweet, AnyError>) -> Void)) {
+	public func deleteTweet(_ tweet: Tweet, completion: @escaping ((Result<Tweet, Error>) -> Void)) {
 		DispatchQueue.global(qos: .background).async {
 			sleep(1)
 			completion(.success(tweet))

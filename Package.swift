@@ -1,19 +1,42 @@
+// swift-tools-version:5.0
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
 import PackageDescription
 
 let package = Package(
     name: "Rehatch",
-    targets: [
-		Target(
-			name: "Rehatch",
-			dependencies: ["RehatchCore"]
-		),
-		Target(name: "RehatchCore")
+	platforms: [
+		.macOS(.v10_13)
+	],
+	products: [
+		.executable(name: "rehatch", targets: ["CLI"]),
 	],
 	dependencies: [
-		.Package(url: "https://github.com/jatoben/CommandLine", "3.0.0-pre1"),
-		.Package(url: "https://github.com/devxoul/Then", "2.1.0"),
-		.Package(url: "https://github.com/yaslab/CSV.swift.git", majorVersion: 1, minor: 1),
-		.Package(url: "https://github.com/antitypical/Result.git", majorVersion: 3),
-		.Package(url: "https://github.com/mw99/OhhAuth.git", majorVersion: 1)
+		.package(url: "https://github.com/davdroman/CLISpinner", .branch("master")),
+		.package(url: "https://github.com/davdroman/SwiftCLI", .branch("master")),
+		.package(url: "https://github.com/davdroman/CodableCSV", .branch("swift-pm")),
+		.package(url: "https://github.com/mw99/OhhAuth.git", .upToNextMajor(from: "1.0.0"))
+	],
+    targets: [
+		.target(
+			name: "CLI",
+			dependencies: [
+				"Core",
+				"CLISpinner",
+				"SwiftCLI"
+			]
+		),
+		.target(
+			name: "Core",
+			dependencies: ["CodableCSV"]
+		),
+		.target(
+			name: "Twitter",
+			dependencies: ["OhhAuth"]
+		),
+		.testTarget(
+			name: "CoreTests",
+			dependencies: []
+		)
 	]
 )
