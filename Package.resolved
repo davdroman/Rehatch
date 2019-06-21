@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CLISpinner",
+        "repositoryURL": "https://github.com/davdroman/CLISpinner",
+        "state": {
+          "branch": "master",
+          "revision": "773e04c9c1df4bf2d9a52a6a0d3511d11a1a8f59",
+          "version": null
+        }
+      },
+      {
+        "package": "CodableCSV",
+        "repositoryURL": "https://github.com/davdroman/CodableCSV",
+        "state": {
+          "branch": "swift-pm",
+          "revision": "90ede7f961443721daf4c31a51d5505c074af4ed",
+          "version": null
+        }
+      },
+      {
+        "package": "OhhAuth",
+        "repositoryURL": "https://github.com/mw99/OhhAuth.git",
+        "state": {
+          "branch": null,
+          "revision": "2b14d3c8087ea9a40b731cfa1bdb0f6f38509448",
+          "version": "1.1.0"
+        }
+      },
+      {
+        "package": "Rainbow",
+        "repositoryURL": "https://github.com/onevcat/Rainbow",
+        "state": {
+          "branch": null,
+          "revision": "9c52c1952e9b2305d4507cf473392ac2d7c9b155",
+          "version": "3.1.5"
+        }
+      },
+      {
+        "package": "SwiftCLI",
+        "repositoryURL": "https://github.com/davdroman/SwiftCLI",
+        "state": {
+          "branch": "master",
+          "revision": "9cde98d69c8ad333b6629e1651aabb545a8dea05",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
