@@ -1,11 +1,3 @@
-//
-//  TweetParser.swift
-//  Rehatch
-//
-//  Created by David Román Aguirre on 23/01/2017.
-//
-//
-
 import Foundation
 
 public struct TweetParser {

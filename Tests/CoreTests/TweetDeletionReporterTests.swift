@@ -1,11 +1,3 @@
-//
-//  TweetDeletionReporterTests.swift
-//  Rehatch
-//
-//  Created by David Roman on 06/07/2017.
-//
-//
-
 import XCTest
 @testable import RehatchCore
 
