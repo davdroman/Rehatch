@@ -1,11 +1,3 @@
-//
-//  TwitterAPIMock.swift
-//  Rehatch
-//
-//  Created by David Roman on 07/07/2017.
-//
-//
-
 import Foundation
 
 public final class TwitterAPIMock: TwitterAPIProtocol {

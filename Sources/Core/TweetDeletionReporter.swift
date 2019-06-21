@@ -1,11 +1,3 @@
-//
-//  TweetDeletionReporter.swift
-//  Rehatch
-//
-//  Created by David Roman on 06/07/2017.
-//
-//
-
 import Foundation
 
 public final class TweetDeletionReporter {
