@@ -4,6 +4,13 @@ import Twitter
 import CSV
 
 final class RehatchCommand: Command {
+	enum Constant {
+		static let consumerKey = ConsumerKey(
+			key: "<CONSUMER_KEY>",
+			secret: "<CONSUMER_SECRET>"
+		)
+	}
+
 	let name = "rehatch"
 
 	let twitterArchivePath = Parameter(
@@ -15,7 +22,7 @@ final class RehatchCommand: Command {
 	init() {}
 
 	func execute() throws {
-		let oauthApi = OAuth.API(consumerKey: consumerKey)
+		let oauthApi = OAuth.API(consumerKey: Constant.consumerKey)
 		let requestToken = try oauthApi.requestToken()
 		let authorizationResponse = try oauthApi.authorize(with: requestToken)
 		let accessToken = try oauthApi.exchangeRequestTokenForAccessToken(with: requestToken, authorizationResponse: authorizationResponse)
@@ -32,7 +39,7 @@ final class RehatchCommand: Command {
 			tweetsToDelete = archive.tweets
 		}
 		let reporter = Archive.Tweet.DeletionReport(totalTweets: archive.tweets.count)
-		let statusesAPI = StatusesAPI(consumerKey: consumerKey, accessToken: accessToken)
+		let statusesAPI = StatusesAPI(consumerKey: Constant.consumerKey, accessToken: accessToken)
 
 		Logger.info("Hey @\(accessToken.username)! You are about to delete \(tweetsToDelete.count) tweets.")
 		guard Input.readBool(prompt: "Would you like to proceed? (y/n)") else {
