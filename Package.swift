@@ -13,30 +13,34 @@ let package = Package(
 	],
 	dependencies: [
 		.package(url: "https://github.com/davdroman/CLISpinner", .branch("master")),
+		.package(url: "https://github.com/yaslab/CSV.swift", .upToNextMajor(from: "2.4.1")),
+		.package(url: "https://github.com/mw99/OhhAuth.git", .upToNextMajor(from: "1.0.0")),
 		.package(url: "https://github.com/davdroman/SwiftCLI", .branch("master")),
-		.package(url: "https://github.com/davdroman/CodableCSV", .branch("swift-pm")),
-		.package(url: "https://github.com/mw99/OhhAuth.git", .upToNextMajor(from: "1.0.0"))
+		.package(url: "https://github.com/httpswift/swifter", .upToNextMajor(from: "1.4.7")),
 	],
     targets: [
 		.target(
 			name: "CLI",
 			dependencies: [
-				"Core",
+				"CSV",
 				"CLISpinner",
-				"SwiftCLI"
+				"SwiftCLI",
+				"Twitter",
 			]
 		),
 		.target(
-			name: "Core",
-			dependencies: ["CodableCSV"]
-		),
-		.target(
 			name: "Twitter",
-			dependencies: ["OhhAuth"]
+			dependencies: [
+				"OhhAuth",
+				"Sugar",
+				"SwiftCLI",
+				"Swifter",
+			]
 		),
+		.target(name: "Sugar", dependencies: []),
 		.testTarget(
-			name: "CoreTests",
-			dependencies: []
+			name: "TwitterTests",
+			dependencies: ["Twitter"]
 		)
 	]
 )
