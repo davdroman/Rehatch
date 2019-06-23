@@ -22,34 +22,18 @@ public final class StatusesAPI {
 	}
 
 	public func unretweetTweet(with tweetId: String) throws {
-		#if DEBUG
-		sleep(2)
-		#else
-		let url = try URL(
-			scheme: "https",
-			host: "api.twitter.com",
-			path: "/1.1/statuses/unretweet/\(tweetId).json"
-		)
-		var request = URLRequest(url: url)
-		request.oAuthSign(
-			method: "POST",
-			urlFormParameters: [:],
-			consumerCredentials: (key: consumerKey.key, secret: consumerKey.secret),
-			userCredentials: (key: accessToken.token, secret: accessToken.secret)
-		)
-
-		_ = try URLSession(configuration: .ephemeral).synchronousDataTask(with: request).get()
-		#endif
+		try performAction("unretweet", tweetId: tweetId)
 	}
 
 	public func deleteTweet(with tweetId: String) throws {
-		#if DEBUG
-		sleep(2)
-		#else
+		try performAction("destroy", tweetId: tweetId)
+	}
+
+	func performAction(_ action: String, tweetId: String) throws {
 		let url = try URL(
 			scheme: "https",
 			host: "api.twitter.com",
-			path: "/1.1/statuses/destroy/\(tweetId).json"
+			path: "/1.1/statuses/\(action)/\(tweetId).json"
 		)
 		var request = URLRequest(url: url)
 		request.oAuthSign(
@@ -59,7 +43,22 @@ public final class StatusesAPI {
 			userCredentials: (key: accessToken.token, secret: accessToken.secret)
 		)
 
-		_ = try URLSession(configuration: .ephemeral).synchronousDataTask(with: request).get()
-		#endif
+		let result = try URLSession(configuration: .ephemeral).synchronousDataTask(with: request).get()
+		guard let response = result.response as? HTTPURLResponse else {
+			fatalError("Impossible!")
+		}
+
+		switch response.statusCode {
+		case 200...299:
+			break
+		default:
+			throw Error.http(statusCode: response.statusCode)
+		}
+	}
+}
+
+extension StatusesAPI {
+	public enum Error: Swift.Error {
+		case http(statusCode: Int)
 	}
 }
