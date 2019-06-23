@@ -3,12 +3,19 @@ Rehatch
 
 The main problem when it comes to deleting all your tweets from your account is the Twitter API doesn't allow retrieval of tweets further than your last ~3000. Rehatch overcomes this problem by using your Twitter Archive instead.
 
+## Installation
+
+```sh
+brew install davdroman/tap/rehatch
+```
+
 ## Usage
 
-1. [__Create a Twitter application__](https://apps.twitter.com) in order to get a consumer key, consumer secret, access token and access token secret.
-2. [__Download your Twitter Archive__](https://twitter.com/settings/account).
-3. Run `rehatch`.
+1. [__Download your Twitter Archive__](https://twitter.com/settings/account).
+2. Run:
 
-## License
+```sh
+rehatch <twitterArchiveZip>
+```
 
-Rehatch is available under the MIT license.
+You can optionally specify a `--until-date` UNIX timestamp to delete tweets only until a certain date.
