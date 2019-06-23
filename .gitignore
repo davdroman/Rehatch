@@ -2,3 +2,4 @@
 /.build
 /Packages
 /*.xcodeproj
+Sources/CLI/ConsumerKeys.swift
