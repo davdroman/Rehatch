@@ -1,0 +1,16 @@
+os:
+  - osx
+language: objective-c
+osx_image: xcode10.2
+cache:
+  directories:
+    - .build
+script:
+  - swift test 2>&1 | xcpretty
+  - make install
+branches:
+  only:
+    - master
+    - develop
+notifications:
+  email: false

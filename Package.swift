@@ -1,19 +1,46 @@
+// swift-tools-version:5.0
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
 import PackageDescription
 
 let package = Package(
     name: "Rehatch",
-    targets: [
-		Target(
-			name: "Rehatch",
-			dependencies: ["RehatchCore"]
-		),
-		Target(name: "RehatchCore")
+	platforms: [
+		.macOS(.v10_13)
+	],
+	products: [
+		.executable(name: "rehatch", targets: ["CLI"]),
 	],
 	dependencies: [
-		.Package(url: "https://github.com/jatoben/CommandLine", "3.0.0-pre1"),
-		.Package(url: "https://github.com/devxoul/Then", "2.1.0"),
-		.Package(url: "https://github.com/yaslab/CSV.swift.git", majorVersion: 1, minor: 1),
-		.Package(url: "https://github.com/antitypical/Result.git", majorVersion: 3),
-		.Package(url: "https://github.com/mw99/OhhAuth.git", majorVersion: 1)
+		.package(url: "https://github.com/davdroman/CLISpinner", .branch("master")),
+		.package(url: "https://github.com/yaslab/CSV.swift", .upToNextMajor(from: "2.4.1")),
+		.package(url: "https://github.com/mw99/OhhAuth.git", .upToNextMajor(from: "1.0.0")),
+		.package(url: "https://github.com/davdroman/SwiftCLI", .branch("master")),
+		.package(url: "https://github.com/httpswift/swifter", .upToNextMajor(from: "1.4.7")),
+	],
+    targets: [
+		.target(
+			name: "CLI",
+			dependencies: [
+				"CSV",
+				"CLISpinner",
+				"SwiftCLI",
+				"Twitter",
+			]
+		),
+		.target(
+			name: "Twitter",
+			dependencies: [
+				"OhhAuth",
+				"Sugar",
+				"SwiftCLI",
+				"Swifter",
+			]
+		),
+		.target(name: "Sugar", dependencies: []),
+		.testTarget(
+			name: "TwitterTests",
+			dependencies: ["Twitter"]
+		)
 	]
 )

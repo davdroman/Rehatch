@@ -1,0 +1,61 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CLISpinner",
+        "repositoryURL": "https://github.com/davdroman/CLISpinner",
+        "state": {
+          "branch": "master",
+          "revision": "773e04c9c1df4bf2d9a52a6a0d3511d11a1a8f59",
+          "version": null
+        }
+      },
+      {
+        "package": "CSV.swift",
+        "repositoryURL": "https://github.com/yaslab/CSV.swift",
+        "state": {
+          "branch": null,
+          "revision": "b5514ec6f39c08d9d9bbc79abc3932b696218292",
+          "version": "2.4.1"
+        }
+      },
+      {
+        "package": "OhhAuth",
+        "repositoryURL": "https://github.com/mw99/OhhAuth.git",
+        "state": {
+          "branch": null,
+          "revision": "2b14d3c8087ea9a40b731cfa1bdb0f6f38509448",
+          "version": "1.1.0"
+        }
+      },
+      {
+        "package": "Rainbow",
+        "repositoryURL": "https://github.com/onevcat/Rainbow",
+        "state": {
+          "branch": null,
+          "revision": "9c52c1952e9b2305d4507cf473392ac2d7c9b155",
+          "version": "3.1.5"
+        }
+      },
+      {
+        "package": "SwiftCLI",
+        "repositoryURL": "https://github.com/davdroman/SwiftCLI",
+        "state": {
+          "branch": "master",
+          "revision": "d632fa8f66dda8b788fb0b92dc9f5fa364aefb90",
+          "version": null
+        }
+      },
+      {
+        "package": "Swifter",
+        "repositoryURL": "https://github.com/httpswift/swifter",
+        "state": {
+          "branch": null,
+          "revision": "8b5afb48ae64d4f729f0489ddcfe09c62b9c3687",
+          "version": "1.4.7"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
