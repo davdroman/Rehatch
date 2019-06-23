@@ -11,12 +11,12 @@
         }
       },
       {
-        "package": "CodableCSV",
-        "repositoryURL": "https://github.com/davdroman/CodableCSV",
+        "package": "CSV.swift",
+        "repositoryURL": "https://github.com/yaslab/CSV.swift",
         "state": {
-          "branch": "swift-pm",
-          "revision": "90ede7f961443721daf4c31a51d5505c074af4ed",
-          "version": null
+          "branch": null,
+          "revision": "b5514ec6f39c08d9d9bbc79abc3932b696218292",
+          "version": "2.4.1"
         }
       },
       {
@@ -42,8 +42,17 @@
         "repositoryURL": "https://github.com/davdroman/SwiftCLI",
         "state": {
           "branch": "master",
-          "revision": "9cde98d69c8ad333b6629e1651aabb545a8dea05",
+          "revision": "d632fa8f66dda8b788fb0b92dc9f5fa364aefb90",
           "version": null
+        }
+      },
+      {
+        "package": "Swifter",
+        "repositoryURL": "https://github.com/httpswift/swifter",
+        "state": {
+          "branch": null,
+          "revision": "8b5afb48ae64d4f729f0489ddcfe09c62b9c3687",
+          "version": "1.4.7"
         }
       }
     ]

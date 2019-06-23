@@ -1,15 +1,14 @@
 import XCTest
-@testable import RehatchCore
+@testable import Twitter
 
-final class TweetTests: XCTestCase {
-
-	var rawTweets: [Tweet] {
+final class ArchiveTweetTests: XCTestCase {
+	var rawTweets: [Archive.Tweet] {
 		return [
-			Tweet(id: "B", date: Date(timeIntervalSince1970: 200), isRetweet: true),
-			Tweet(id: "D", date: Date(timeIntervalSince1970: 400), isRetweet: true),
-			Tweet(id: "E", date: Date(timeIntervalSince1970: 500), isRetweet: true),
-			Tweet(id: "C", date: Date(timeIntervalSince1970: 300), isRetweet: true),
-			Tweet(id: "A", date: Date(timeIntervalSince1970: 100), isRetweet: true),
+			Archive.Tweet(id: "B", date: Date(timeIntervalSince1970: 200), isRetweet: true),
+			Archive.Tweet(id: "D", date: Date(timeIntervalSince1970: 400), isRetweet: true),
+			Archive.Tweet(id: "E", date: Date(timeIntervalSince1970: 500), isRetweet: true),
+			Archive.Tweet(id: "C", date: Date(timeIntervalSince1970: 300), isRetweet: true),
+			Archive.Tweet(id: "A", date: Date(timeIntervalSince1970: 100), isRetweet: true),
 		]
 	}
 
