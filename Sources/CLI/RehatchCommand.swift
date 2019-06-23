@@ -39,7 +39,7 @@ final class RehatchCommand: Command {
 		} else {
 			tweetsToDelete = archive.tweets
 		}
-		let reporter = Archive.Tweet.DeletionReport(totalTweets: archive.tweets.count)
+		let report = Archive.Tweet.DeletionReport(totalTweets: archive.tweets.count)
 		let statusesAPI = StatusesAPI(consumerKey: Constant.consumerKey, accessToken: accessToken)
 
 		Logger.info("Hey @\(accessToken.username)! You are about to delete \(tweetsToDelete.count) tweets.")
@@ -47,7 +47,7 @@ final class RehatchCommand: Command {
 			return
 		}
 
-		Logger.step(reporter.progressString, succeedPrevious: false)
+		Logger.step(report.progressString, succeedPrevious: false)
 		for tweet in tweetsToDelete {
 			do {
 				if tweet.isRetweet {
@@ -55,15 +55,15 @@ final class RehatchCommand: Command {
 				} else {
 					try statusesAPI.deleteTweet(with: tweet.id)
 				}
-				reporter.add(tweet, success: true)
+				report.add(tweet, success: true)
 			} catch {
-				reporter.add(tweet, success: false)
+				report.add(tweet, success: false)
 			}
 
-			if !reporter.didFinish {
-				Logger.step(reporter.progressString, succeedPrevious: false)
+			if !report.didFinish {
+				Logger.step(report.progressString, succeedPrevious: false)
 			} else {
-				Logger.succeed(reporter.endString)
+				Logger.succeed(report.endString)
 			}
 		}
 	}
