@@ -27,7 +27,8 @@ final class RehatchCommand: Command {
 		let authorizationResponse = try oauthApi.authorize(with: requestToken)
 		let accessToken = try oauthApi.exchangeRequestTokenForAccessToken(with: requestToken, authorizationResponse: authorizationResponse)
 
-		let twitterArchiveFolderPathURL = URL(fileURLWithPath: twitterArchivePath.value).deletingPathExtension()
+		let twitterArchiveFolderName = URL(fileURLWithPath: twitterArchivePath.value).deletingPathExtension().lastPathComponent
+		let twitterArchiveFolderPathURL = FileManager.default.temporaryDirectory.appendingPathComponent(twitterArchiveFolderName)
 		let twitterArchiveFolderPath = twitterArchiveFolderPathURL.path
 		_ = try Task.capture(bash: "unzip -qq -o \(twitterArchivePath.value) -d \(twitterArchiveFolderPath)")
 
