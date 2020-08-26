@@ -1,7 +1,7 @@
 import Foundation
 import OhhAuth
 import Sugar
-import class SwiftCLI.Task
+import ShellOut
 import Swifter
 
 public enum OAuth {
@@ -88,7 +88,7 @@ public enum OAuth {
 				queryItems: [URLQueryItem(name: RequestToken.CodingKeys.token.rawValue, value: requestToken.token)]
 			)
 
-			_ = try Task.capture(bash: "open '\(url.absoluteURL)'")
+			_ = try shellOut(to: "open '\(url.absoluteURL)'")
 
 			var possibleCallbackParams: [(String, String)]?
 

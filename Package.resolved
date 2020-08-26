@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/yaslab/CSV.swift",
         "state": {
           "branch": null,
-          "revision": "b5514ec6f39c08d9d9bbc79abc3932b696218292",
-          "version": "2.4.1"
+          "revision": "81d2874c51db364d7e1d71b0d99018a294c87ac1",
+          "version": "2.4.3"
         }
       },
       {
@@ -38,12 +38,21 @@
         }
       },
       {
-        "package": "SwiftCLI",
-        "repositoryURL": "https://github.com/davdroman/SwiftCLI",
+        "package": "ShellOut",
+        "repositoryURL": "https://github.com/JohnSundell/ShellOut",
         "state": {
-          "branch": "master",
-          "revision": "d632fa8f66dda8b788fb0b92dc9f5fa364aefb90",
-          "version": null
+          "branch": null,
+          "revision": "e1577acf2b6e90086d01a6d5e2b8efdaae033568",
+          "version": "2.3.0"
+        }
+      },
+      {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser",
+        "state": {
+          "branch": null,
+          "revision": "15351c1cd009eba0b6e438bfef55ea9847a8dc4a",
+          "version": "0.3.0"
         }
       },
       {
