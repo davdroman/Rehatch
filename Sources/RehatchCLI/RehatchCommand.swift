@@ -11,27 +11,27 @@ struct RehatchCommand: ParsableCommand {
     var untilDate: Int?
 
     func run() throws {
-		let oauthApi = OAuth.API(consumerKey: Secrets.consumerKeys)
-		let requestToken = try oauthApi.requestToken()
-		let authorizationResponse = try oauthApi.authorize(with: requestToken)
-		let accessToken = try oauthApi.exchangeRequestTokenForAccessToken(with: requestToken, authorizationResponse: authorizationResponse)
+        let oauthApi = OAuth.API(consumerKey: Secrets.consumerKeys)
+        let requestToken = try oauthApi.requestToken()
+        let authorizationResponse = try oauthApi.authorize(with: requestToken)
+        let accessToken = try oauthApi.exchangeRequestTokenForAccessToken(with: requestToken, authorizationResponse: authorizationResponse)
 
-		let twitterArchiveFolderName = URL(fileURLWithPath: twitterArchivePath).deletingPathExtension().lastPathComponent
-		let twitterArchiveFolderPathURL = FileManager.default.temporaryDirectory.appendingPathComponent(twitterArchiveFolderName)
-		let twitterArchiveFolderPath = twitterArchiveFolderPathURL.path
-		_ = try shellOut(to: "unzip -qq -o \(twitterArchivePath) -d \(twitterArchiveFolderPath)")
+        let twitterArchiveFolderName = URL(fileURLWithPath: twitterArchivePath).deletingPathExtension().lastPathComponent
+        let twitterArchiveFolderPathURL = FileManager.default.temporaryDirectory.appendingPathComponent(twitterArchiveFolderName)
+        let twitterArchiveFolderPath = twitterArchiveFolderPathURL.path
+        _ = try shellOut(to: "unzip -qq -o \(twitterArchivePath) -d \(twitterArchiveFolderPath)")
 
-		let archive = try Archive(contentsOfFolder: twitterArchiveFolderPath)
-		let tweetsToDelete: [Archive.Tweet]
-		if let untilDateUnix = untilDate {
-			tweetsToDelete = archive.tweets.sortedTweets(until: Date(timeIntervalSince1970: TimeInterval(untilDateUnix)))
-		} else {
-			tweetsToDelete = archive.tweets
-		}
-		let report = Archive.Tweet.DeletionReport(totalTweets: archive.tweets.count)
-		let statusesAPI = StatusesAPI(consumerKey: Secrets.consumerKeys, accessToken: accessToken)
+        let archive = try Archive(contentsOfFolder: twitterArchiveFolderPath)
+        let tweetsToDelete: [Archive.Tweet]
+        if let untilDateUnix = untilDate {
+            tweetsToDelete = archive.tweets.sortedTweets(until: Date(timeIntervalSince1970: TimeInterval(untilDateUnix)))
+        } else {
+            tweetsToDelete = archive.tweets
+        }
+        let report = Archive.Tweet.DeletionReport(totalTweets: archive.tweets.count)
+        let statusesAPI = StatusesAPI(consumerKey: Secrets.consumerKeys, accessToken: accessToken)
 
-		Logger.info(
+        Logger.info(
             """
             Hey @\(accessToken.username)!
             You are about to delete \(tweetsToDelete.count) tweets.
@@ -42,24 +42,25 @@ struct RehatchCommand: ParsableCommand {
             return
         }
 
-		Logger.step(report.progressString, succeedPrevious: false)
-		for tweet in tweetsToDelete {
-			do {
-				if tweet.isRetweet {
-					try statusesAPI.unretweetTweet(with: tweet.id)
-				} else {
-					try statusesAPI.deleteTweet(with: tweet.id)
-				}
-				report.add(tweet, success: true)
-			} catch {
-				report.add(tweet, success: false)
-			}
+        Logger.step(report.progressString, succeedPrevious: false)
+        for tweet in tweetsToDelete {
+            do {
+                if tweet.isRetweet {
+                    try statusesAPI.unretweetTweet(with: tweet.id)
+                } else {
+                    try statusesAPI.deleteTweet(with: tweet.id)
+                }
+                report.add(tweet, success: true)
+            } catch {
+                report.add(tweet, success: false)
+            }
 
-			if !report.didFinish {
-				Logger.step(report.progressString, succeedPrevious: false)
-			} else {
-				Logger.succeed(report.endString)
-			}
-		}
-	}
+            if !report.didFinish {
+                Logger.step(report.progressString, succeedPrevious: false)
+            } else {
+                Logger.succeed(report.endString)
+            }
+        }
+    }
 }
+

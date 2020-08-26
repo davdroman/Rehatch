@@ -1,14 +1,14 @@
 import Foundation
 
 struct RehatchCLI {
-	static func main() {
+    static func main() {
         let cli = RehatchCommand.parseOrExit()
 
-		// Intercept CTRL+C exit sequence
-		signal(SIGINT) { _ in
-			Logger.finish()
-			exit(EXIT_SUCCESS)
-		}
+        // Intercept CTRL+C exit sequence
+        signal(SIGINT) { _ in
+            Logger.finish()
+            exit(EXIT_SUCCESS)
+        }
 
         switch Result(catching: cli.run) {
         case .success:
@@ -18,5 +18,6 @@ struct RehatchCLI {
             Logger.fail(error.localizedDescription)
             exit(EXIT_FAILURE)
         }
-	}
+    }
 }
+
