@@ -11,11 +11,6 @@ struct RehatchCommand: ParsableCommand {
     var untilDate: Int?
 
     func run() throws {
-        let oauthApi = OAuth.API(consumerKey: Secrets.consumerKeys)
-        let requestToken = try oauthApi.requestToken()
-        let authorizationResponse = try oauthApi.authorize(with: requestToken)
-        let accessToken = try oauthApi.exchangeRequestTokenForAccessToken(with: requestToken, authorizationResponse: authorizationResponse)
-
         let twitterArchiveFolderName = URL(fileURLWithPath: twitterArchivePath).deletingPathExtension().lastPathComponent
         let twitterArchiveFolderPathURL = FileManager.default.temporaryDirectory.appendingPathComponent(twitterArchiveFolderName)
         let twitterArchiveFolderPath = twitterArchiveFolderPathURL.path
@@ -28,8 +23,11 @@ struct RehatchCommand: ParsableCommand {
         } else {
             tweetsToDelete = archive.tweets
         }
-        let report = Archive.Tweet.DeletionReport(totalTweets: archive.tweets.count)
-        let statusesAPI = StatusesAPI(consumerKey: Secrets.consumerKeys, accessToken: accessToken)
+
+        let oauthApi = OAuth.API(consumerKey: Secrets.consumerKeys)
+        let requestToken = try oauthApi.requestToken()
+        let authorizationResponse = try oauthApi.authorize(with: requestToken)
+        let accessToken = try oauthApi.exchangeRequestTokenForAccessToken(with: requestToken, authorizationResponse: authorizationResponse)
 
         Logger.info(
             """
@@ -42,7 +40,10 @@ struct RehatchCommand: ParsableCommand {
             return
         }
 
+        let report = Archive.Tweet.DeletionReport(totalTweets: archive.tweets.count)
         Logger.step(report.progressString, succeedPrevious: false)
+
+        let statusesAPI = StatusesAPI(consumerKey: Secrets.consumerKeys, accessToken: accessToken)
         for tweet in tweetsToDelete {
             do {
                 if tweet.isRetweet {
